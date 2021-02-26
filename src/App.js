@@ -3,17 +3,25 @@ import { useState } from "react";
 // import Button from './components/Button'
 import Modal from "./components/Modal";
 import Map from "./components/Map";
+import GeoCashing from "./components/GeoCashing"
 
 function App() {
   const [center, setCenter] = useState([43.88, -72.7317]);
-
-
   const [score, setScore] = useState(100);
   const [display, setDisplay] = useState(false);
+  const [disabled, setDisabled] = useState(true)
 
   function subtractor() {
     setScore(score - 1);
   }
+
+
+  function handleButtons(){
+    setDisabled(false)
+  }
+  // function handleCallback(childData){
+  //   setCenter(childData)
+  // }
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -31,35 +39,38 @@ function App() {
         <a href="">
           <div>High Score</div>
         </a>
-        <div id="text">{`score: ${score} / lat: ${center[0]} / long ${center[1]} / county: / town:`}</div>
+        <div id="text">{`score: ${score} / lat: / long: / county: / town:`}</div>
       </div>
 
       <div className="modal" style={{display: "block", position:"fixed"  }}>
         {display && <Modal display={setDisplay} />}
-        <Map setCenter={setCenter} center={center} />
+        <Map setDisabled={handleButtons} setCenter={setCenter} center={center} />
+        <GeoCashing />
       </div>
-
+        {/* DIRECTIONAL */}
       <div id="menu">
         <button onClick={subtractor}>N</button>
         <button onClick={subtractor}>E</button>
         <button onClick={subtractor}>W</button>
         <button onClick={subtractor}>S</button>
       </div>
-      {/* <Button /> */}
-      <button>Quit</button>
+      {/* QUIT */}
+      <button disabled={disabled} >I Give Up!</button>
+      {/* GUESS */}
       <button
+        disabled={disabled}
         onClick={(evt) => {
           setDisplay(true);
         }}
       >
         Guess
       </button>
-      <button onClick={() => setCenter([41, -72])}>Start</button>
+      {/* START BUTTON */}
+      {/* <button onClick={() => setCenter([41, -72])}>Start</button> */}
+       {/* <button onClick={}>Start</button> */}
     </div>
   );
 }
 
 export default App;
 
-// onClick={moveMarker}
-// [43.88, -72.7317]
