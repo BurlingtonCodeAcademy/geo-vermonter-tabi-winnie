@@ -6,6 +6,8 @@ import Map from "./components/Map";
 
 function App() {
   const [center, setCenter] = useState([43.88, -72.7317]);
+
+
   const [score, setScore] = useState(100);
   const [display, setDisplay] = useState(false);
 
@@ -34,7 +36,7 @@ function App() {
 
       <div className="modal" style={{display: "block", position:"fixed"  }}>
         {display && <Modal display={setDisplay} />}
-        <Map center={center} />
+        <Map setCenter={setCenter} center={center} />
       </div>
 
       <div id="menu">
