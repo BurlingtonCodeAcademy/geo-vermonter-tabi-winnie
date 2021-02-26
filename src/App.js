@@ -1,36 +1,51 @@
-import './App.css';
-import { useState } from 'react'
+import "./App.css";
+import { useState } from "react";
 // import Button from './components/Button'
-
-import Map from './components/Map'
+import Modal from "./components/Modal"
+import Map from "./components/Map";
 
 function App() {
+  const [center, setCenter] = useState([43.88, -72.7317]);
+  const [score, setScore] = useState(100);
+  const [display, setDisplay] = useState(false)
 
-  const [center, setCenter] = useState([43.88, -72.7317])
+
+  function subtractor() {
+    setScore(score - 1);
+  }
 
   return (
-    <div style={{textAlign:'center'}} >
+    <div style={{ textAlign: "center" }}>
       <h1>GeoVermont</h1>
-      <div style={{height: '7vh',border: '1px solid black', textAlign: 'center', }}>
-       
-        <a href="https://google.com"><div>About</div></a>
-        <a href="pages/highscore.html"><div>High Score</div></a>
-        <div id="text">score / lat / long / county / town</div>
-      </div> 
-      <div style={{alignSelf:'right'}}>
-        <Map center={center}/>
+      <div
+        style={{
+          height: "7vh",
+          border: "1px solid black",
+          textAlign: "center",
+        }}
+      >
+        <a href="https://google.com">
+          <div>About</div>
+        </a>
+        <a href="">
+          <div>High Score</div>
+        </a>
+        <div id="text">{`score: ${score} / lat: ${center[0]} / long ${center[1]} / county: / town:`}</div>
       </div>
+      <div className ='modal'>
+        {display && <Modal display={setDisplay} />} 
+        </div>
+        <Map center={center} />
       <div id="menu">
-        
-        <button>N</button> 
-        <button>E</button> 
-        <button>W</button> 
-        <button>S</button>
+        <button onClick={subtractor}>N</button>
+        <button onClick={subtractor}>E</button>
+        <button onClick={subtractor}>W</button>
+        <button onClick={subtractor}>S</button>
       </div>
       {/* <Button /> */}
       <button>Quit</button>
-      <button>Guess</button>
-      <button onClick={() => setCenter([41, -72])}>Click Me</button>
+      <button onClick={(evt) => {setDisplay(true)}}>Guess</button>
+      <button onClick={() => setCenter([41, -72])}>Start</button>
     </div>
   );
 }

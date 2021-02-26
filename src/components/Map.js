@@ -1,7 +1,8 @@
 import { MapContainer, TileLayer, Polygon, Marker, Polyline } from "react-leaflet";
-import Border from '../data/border';
+import borderData from '../data/border.js';
 import L from 'leaflet';
-import leafletPip from "leafletPip";
+// import leafletPip from "leaflet-pip";
+import leafletPip from "leaflet-pip";
 
 function Map(props) {
   let vtOutline = borderData.geometry.coordinates[0].map(coords => [coords[1], coords[0]])
@@ -21,11 +22,11 @@ let y_max = 45.00541896831666;
 let lat = y_min + (Math.random() * (y_max - y_min));
 let lng = x_min + (Math.random() * (x_max - x_min));
  
-console.log(leafletPip.pointInLayer([lng,lat], vtOutline))
+// console.log(leafletPip.pointInLayer([lng,lat], vtOutline))
 
   return (
 
-    <div>
+    <div style={{width: "600px", textAlign:"center"}}>
     <MapContainer
       center={props.center}
       zoom={8}
