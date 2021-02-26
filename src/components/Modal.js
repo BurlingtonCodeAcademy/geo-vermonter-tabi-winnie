@@ -18,7 +18,7 @@ function Modal(props){
     }
 
 
-    return <div style = {{height: '200px', width: '200px', border: '1px solid black', backgroundColor:"teal"}}>
+    return <div style = {{height: '200px', width: '200px', border: '1px solid black', backgroundColor:"teal", position:"absolute", zIndex: 600 }}>
         What County are we in?
         <ul></ul>
         <div>

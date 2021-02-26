@@ -9,24 +9,28 @@ function Map(props) {
   
   
 // make a polygon
-  let polygon = L.vtOutline
+  let polygon = L.geoJson(borderData)
   console.log(polygon)
 
-// max and mins
+// // max and mins
 let x_min = -73.42613118833583;
 let x_max = -71.51022535353107;
 let y_min = 42.730315121762715;
 let y_max = 45.00541896831666;
 
-// generating randoms
+// // generating randoms
 let lat = y_min + (Math.random() * (y_max - y_min));
 let lng = x_min + (Math.random() * (x_max - x_min));
+
+// let results = leafletPip.pointInLayer([-72.7317, 43.88], polygon)
+
+let results = leafletPip.pointInLayer([lng, lat], polygon)
  
-// console.log(leafletPip.pointInLayer([lng,lat], vtOutline))
+console.log(results.length)
 
   return (
 
-    <div style={{width: "600px", textAlign:"center"}}>
+    // <div style={{width: "600px", textAlign:"center"}}>
     <MapContainer
       center={props.center}
       zoom={8}
@@ -41,13 +45,14 @@ let lng = x_min + (Math.random() * (x_max - x_min));
         attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
       />
       <Marker position={props.center} />
+      {/* <Marker position={[lat, lng]} /> */}
       <Polygon
         positions={vtOutline}
         pathOptions={{ color: "pink", fillOpacity: 0 }}
       />
     </MapContainer>
 
-    </div>
+    // </div>
 
   );
 }
