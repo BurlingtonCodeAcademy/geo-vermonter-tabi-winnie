@@ -1,9 +1,10 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import Button from './components/Button'
 import Modal from "./components/Modal";
 import Map from "./components/Map";
 import GeoCashing from "./components/GeoCashing"
+import { Handler } from "leaflet";
 
 function App() {
   const [center, setCenter] = useState([43.88, -72.7317]);
@@ -19,9 +20,15 @@ function App() {
   function handleButtons(){
     setDisabled(false)
   }
-  // function handleCallback(childData){
-  //   setCenter(childData)
-  // }
+
+  
+  
+  function handleCallback(data){
+    console.log(center)
+    console.log(data)
+    setCenter(data)
+  }
+  
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -39,12 +46,12 @@ function App() {
         <a href="">
           <div>High Score</div>
         </a>
-        <div id="text">{`score: ${score} / lat: / long: / county: / town:`}</div>
+        <div id="text">{`score: ${score} / lat:${center[0]} / long:${center[1]} / county: / town:`}</div>
       </div>
 
       <div className="modal" style={{display: "block", position:"fixed"  }}>
         {display && <Modal display={setDisplay} />}
-        <Map setDisabled={handleButtons} setCenter={setCenter} center={center} />
+        <Map setDisabled={handleButtons} handleCallback={handleCallback} center={center} />
         <GeoCashing />
       </div>
         {/* DIRECTIONAL */}

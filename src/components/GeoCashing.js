@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 
 
+// pull these in from center or map 
+let latTest = 43.88
+let longTest = -72.7317
 
 function GeoCashing() {
     const [data, setData] = useState(null);
@@ -10,7 +13,7 @@ function GeoCashing() {
       return false;
     } else {
         fetch(
-            "https://nominatim.openstreetmap.org/reverse?format=json&lat=43.88&lon=-72.7317"
+            "https://nominatim.openstreetmap.org/reverse?format=json&lat="+latTest+"&lon="+longTest 
           ).then((res) => res.json())
           .then((jsonObj) =>{
               console.log(jsonObj);

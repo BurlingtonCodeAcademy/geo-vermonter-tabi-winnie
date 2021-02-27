@@ -37,13 +37,14 @@ let lng = x_min + (Math.random() * (x_max - x_min));
 // let results = leafletPip.pointInLayer([-72.7317, 43.88], polygon)
 let results = leafletPip.pointInLayer([lng, lat], polygon)
 console.log(results.length)
-setNewPoint({lat:lat, lng:lng,point: [lat,lng], inBounds: results.length, zoom:18})
-// props.setCenter()
+setNewPoint({lat:lat, lng:lng, point: [lat,lng], inBounds: results.length, zoom:18})
 console.log(NewPoint.point)
-
+sendData()
 }
 
-
+function sendData(){
+  props.handleCallback(NewPoint.point)
+}
 
 
   return (
@@ -81,3 +82,4 @@ console.log(NewPoint.point)
 
 export default Map;
 
+// 
