@@ -1,28 +1,56 @@
 import { useState, useEffect } from "react";
 
+// pull these in from center or map
 
-// pull these in from center or map 
-let latTest = 43.88
-let longTest = -72.7317
+function GeoCashing(props) {
+  const[location, setLocation] =useState({
+    county:'',
+    village:''
+  })
+  
+  
+  let latTest = props.NewPoint.point[0];
+  let longTest = props.NewPoint.point[1];
 
-function GeoCashing() {
-    const [data, setData] = useState(null);
-
-  useEffect(() => {
-    if (data) {
+    if(!location.county && !props.start) {
       return false;
+    } else if (!location.county && props.start) {
+      fetch(
+        "https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
+          latTest +
+          "&lon=" +
+          longTest
+      )
+        .then((res) => res.json())
+        .then((jsonObj) => {
+          
+          // console.log(jsonObj);
+      
+          // set town states and county state
+          if (jsonObj.address.town) {
+            setLocation({village: jsonObj.address.town,
+              county: jsonObj.address.county})
+          } else if (jsonObj.address.city){
+            setLocation({village: jsonObj.address.city,
+              county: jsonObj.address.county})
+          } else if (jsonObj.address.village){
+            setLocation({village: jsonObj.address.village,
+              county: jsonObj.address.county})
+          } else {
+            return false;
+          }
+                   
+        });
     } else {
-        fetch(
-            "https://nominatim.openstreetmap.org/reverse?format=json&lat="+latTest+"&lon="+longTest 
-          ).then((res) => res.json())
-          .then((jsonObj) =>{
-              console.log(jsonObj);
-              setData(jsonObj)
-          });
+      // console.log(location.county)
+      // console.log(location.village)
+      props.tempFetch(location);
+      // console.log(location)
+      return false;
     }
-  });
-
-  return null
+  
+ 
+  return null;
 }
 
 export default GeoCashing;
